@@ -28,7 +28,8 @@ const SaveInstitutionScreen = () => {
         navigate('/');
       }
 
-      setFormData({ id: "", name: "", code: "", status: "" });
+      // setFormData({ id: "", name: "", code: "", status: "" });
+      alert(response.message);
     } catch (error) {
       console.error("Error saving institution:", error);
     }
@@ -66,17 +67,19 @@ const SaveInstitutionScreen = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            placeholder="Enter name"
+            placeholder="Enter name (max length 50)"
+            maxLength={50}
           />
         </div>
         <div style={{ marginBottom: "10px" }}>
           <label>Code: </label>
           <input
-            type="text"
+            type="tel"
             name="code"
             value={formData.code}
             onChange={handleInputChange}
-            placeholder="Enter code"
+            placeholder="Enter code (max length 5)"
+            maxLength={5}
           />
         </div>
         <div style={{ marginBottom: "10px" }}>
@@ -86,7 +89,8 @@ const SaveInstitutionScreen = () => {
             name="status"
             value={formData.status}
             onChange={handleInputChange}
-            placeholder="Enter status"
+            placeholder="Enter status (0 or 1)"
+            maxLength={1}
           />
         </div>
         <button onClick={handleSave} style={{ padding: "10px 20px" }}>
