@@ -139,7 +139,12 @@ function LoginPage() {
           localStorage.setItem('refresh_token', data.refreshToken);
           localStorage.setItem('expired_after', data.expiresIn);
           window.location.href = "/";
+          return;
         }
+        document.getElementById("login-alert").style.opacity = 1;
+        document.getElementById("login-msg-result").textContent = "Error";
+        document.getElementById('loading-spinner').style.display = 'none';
+        return;
       }
       catch (error) {
       }
