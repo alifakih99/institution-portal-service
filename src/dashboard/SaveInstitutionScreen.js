@@ -29,10 +29,10 @@ const SaveInstitutionScreen = () => {
       const response = await api.post(`/api/v1/institution`, formData);
       if (response.data && response.data.status && response.data.code === 2000) {
         navigate('/');
+        return;
       }
-
       // setFormData({ id: "", name: "", code: "", status: "" });
-      alert(response.message);
+      alert(response.data.message);
     } catch (error) {
       console.error("Error saving institution:", error);
     }
