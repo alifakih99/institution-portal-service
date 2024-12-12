@@ -29,7 +29,7 @@ api.interceptors.response.use(
     if (error) {
       const refreshToken = localStorage.getItem("refresh_token");
 
-      if (refreshToken) {
+      if (refreshToken && !originalRequest._retry) {
         originalRequest._retry = true;
 
         try {
@@ -42,7 +42,6 @@ api.interceptors.response.use(
           });
 
           const { data } = await ax.post("/api/v1/auth/refresh-token");
-          console.log(data.data.accessToken);
           localStorage.setItem("access_token", data.data.accessToken);
           localStorage.setItem("refresh_token", data.data.refreshToken);
           localStorage.setItem("expired_after", data.data.expiresIn);

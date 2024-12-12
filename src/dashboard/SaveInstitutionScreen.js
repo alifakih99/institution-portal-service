@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const SaveInstitutionScreen = () => {
   const navigate = useNavigate();
+  const [status, setStatus] = useState(null);
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -18,13 +19,16 @@ const SaveInstitutionScreen = () => {
   useEffect(() => {
     if (location.state) {
       setFormData(location.state);
+      setStatus(location.state.status);
+      console.log(location.state);
     }
   }, [location.state]);
 
   const handleSave = async () => {
     try {
-      if (formData.status !== '0' && formData.status !== '1') {
+      if (formData.status !== '0' && formData.status !== '1' && formData.status !== 0 && formData.status !== 1) {
         alert("Status should be 0 or 1");
+        return;
       }
       const response = await api.post(`/api/v1/institution`, formData);
       if (response.data && response.data.status && response.data.code === 2000) {
