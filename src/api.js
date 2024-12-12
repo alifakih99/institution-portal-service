@@ -29,7 +29,7 @@ api.interceptors.response.use(
     if (error) {
       const refreshToken = localStorage.getItem("refresh_token");
 
-      if (refreshToken && !originalRequest._retry) {
+      if (originalRequest.status === 401 && refreshToken && !originalRequest._retry) {
         originalRequest._retry = true;
 
         try {
@@ -58,7 +58,7 @@ api.interceptors.response.use(
           window.location.href = "/login";
         }
       } else {
-        window.location.href = "/login";
+        // window.location.href = "/login";
       }
     }
     return Promise.reject(error);

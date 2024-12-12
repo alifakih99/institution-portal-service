@@ -26,6 +26,14 @@ const SaveInstitutionScreen = () => {
 
   const handleSave = async () => {
     try {
+      if (formData.name === null || formData.name === undefined || formData.name.length === 0) {
+        alert("Name Field Should Be Provided");
+        return;
+      }
+      if (formData.code === null || formData.code === undefined || formData.code.length === 0) {
+        alert("Code Field Should Be Provided");
+        return;
+      }
       if (formData.status !== '0' && formData.status !== '1' && formData.status !== 0 && formData.status !== 1) {
         alert("Status should be 0 or 1");
         return;
