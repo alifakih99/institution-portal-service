@@ -23,6 +23,9 @@ const SaveInstitutionScreen = () => {
 
   const handleSave = async () => {
     try {
+      if (formData.status !== '0' && formData.status !== '1') {
+        alert("Status should be 0 or 1");
+      }
       const response = await api.post(`/api/v1/institution`, formData);
       if (response.data && response.data.status && response.data.code === 2000) {
         navigate('/');
