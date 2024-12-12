@@ -42,11 +42,12 @@ api.interceptors.response.use(
           });
 
           const { data } = await ax.post("/api/v1/auth/refresh-token");
-          console.log(data.data.access_token);
-          localStorage.setItem("access_token", data.data.access_token);
-          localStorage.setItem("refresh_token", data.data.refresh_token);
+          console.log(data.data.accessToken);
+          localStorage.setItem("access_token", data.data.accessToken);
+          localStorage.setItem("refresh_token", data.data.refreshToken);
+          localStorage.setItem("expired_after", data.data.expiresIn);
 
-          originalRequest.headers.Authorization = `Bearer ${data.data.access_token}`;
+          originalRequest.headers.Authorization = `Bearer ${data.data.accessToken}`;
 
           return api(originalRequest);
         } catch (refreshError) {
@@ -54,6 +55,7 @@ api.interceptors.response.use(
 
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          localStorage.removeItem("expired_after");
           window.location.href = "/login";
         }
       } else {
